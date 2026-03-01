@@ -31,7 +31,7 @@ cdef class DecisionTree:
         self.n_bin = n_bin
         self.root = -1
 
-    cdef int build(self, double[:] g, double[:] h, unsigned char[:, ::1] X_binned, int[:] indices, int start, int end, int depth):
+    cdef int build(self, double[:] g, double[:] h, unsigned char[::1, :] X_binned, int[:] indices, int start, int end, int depth):
         cdef double sum_g = 0, sum_h = 0
         cdef int i, idx
         cdef int best_f, best_b
@@ -81,13 +81,13 @@ cdef class DecisionTree:
         self.nodes[idx].right = right_idx
         return idx
 
-    def fit(self, unsigned char[:, ::1] X_binned, double[:] g, double[:] h):
+    def fit(self, unsigned char[::1, :] X_binned, double[:] g, double[:] h):
         cdef int n_samples = X_binned.shape[0]
         cdef int[:] indices = np.arange(n_samples, dtype=np.int32)
         self.nodes.clear()
         self.root = self.build(g, h, X_binned, indices, 0, n_samples, 0)
 
-    def predict(self, unsigned char[:, ::1] X_binned):
+    def predict(self, unsigned char[:, :] X_binned):
         cdef int n_samples = X_binned.shape[0]
         cdef double[:] preds = np.zeros(n_samples, dtype=np.float64)
         cdef int i, curr

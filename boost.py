@@ -17,7 +17,7 @@ class Boost:
         self.gamma = gamma
 
     def fit(self, X_binned, y):
-        X_binned = np.ascontiguousarray(X_binned, dtype=np.uint8)
+        X_binned = np.asfortranarray(X_binned, dtype=np.uint8)
         y_pred = np.full_like(y, self.base_score, dtype=np.float64)
         for i in range(self.n_estimators):
             g, h = self.loss.upd(y, y_pred)

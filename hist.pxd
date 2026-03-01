@@ -1,7 +1,7 @@
 cdef (int, int, double) split(
     double[:] g,
     double[:] h,
-    unsigned char[:, ::1] X_binned,
+    unsigned char[::1, :] X_binned,
     int[:] indices,
     int start,
     int end,
