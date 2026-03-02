@@ -33,7 +33,7 @@ class Boost:
             self.trees.append(tree)
 
     def predict(self, X_binned):
-        X_binned = np.ascontiguousarray(X_binned, dtype=np.uint8)
+        # X_binned = np.ascontiguousarray(X_binned, dtype=np.uint8)
         y_pred = np.full(X_binned.shape[0], self.base_score, dtype=np.float64)
         for tree in self.trees:
             y_pred += self.lr * tree.predict(X_binned)
